@@ -1,26 +1,30 @@
-var choo = require('choo');
-var html = require('choo/html');
-var mount = require('choo/mount');
-var app = choo();
+const express = require('express');
+const colors = require('colors');
+const webpack = require('webpack');
 
-// Views
-var homeView = require('./views/home');
+process.env.PORT = process.env.PORT || 4566;
 
-// Model
-app.model(require('./model/main'));
+const app = express();
+const port = process.env.PORT;
+const development = process.env.NODE_ENV == 'development';
 
-// Routes
-app.router(['/', homeView]);
+const webpackConfig = require('./webpack.config');
+const compiler = webpack(webpackConfig);
 
-// Setup
-var tree = app.start();
-var el = document.querySelector('#choo-app');
-el && el.remove();
-document.body.appendChild(html`<div id="choo-app">${tree}</div>`);
-
-// HMR
-if(module.hot) {
-	module.hot.accept(function(err){
-		err && console.error("Cannot apply hot update", err);
-	});
+if(development){
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
 }
+
+app.use(express.static('public'));
+app.use(express.static('build'));
+app.use(function(req,res){ res.sendFile(__dirname + '/index.html'); })
+
+app.listen(port,function(){
+  var showPort = port == '80'? '/' : (':'+port+'/');
+  var hostname = 'http://localhost' + showPort;
+  console.log('Running on ' + hostname.green + ' ¯\\_(ツ)_/¯ \n'.magenta);
+});

@@ -1,4 +1,20 @@
 .root{
-  border: solid 5px black;
-  padding: 20px;
+
+}
+
+.intro{
+  min-height: 80vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+  .addressSearchForm{
+    margin-top: 60px;
+  }
+
+.sell{
+  min-height: 80vh;
+  background-color: lightgreen;
 }

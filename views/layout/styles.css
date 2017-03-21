@@ -1,0 +1,23 @@
+@import '../../css/texts';
+
+.root{
+
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  /* nytimes height*/
+  height: 53px;
+  padding: 10px;
+  background-color: #fafafa;
+}
+  .title{
+    @apply --title-1;
+    flex:1;
+    text-align: center;
+  }
+
+.main{
+
+}

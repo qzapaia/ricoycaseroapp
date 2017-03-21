@@ -1,0 +1,10 @@
+.root{
+ /* your styles */
+}
+
+.foodPreview{
+  padding: 20px;
+  background-color: #defafa;
+  margin: 20px 0;
+  display: block;
+}

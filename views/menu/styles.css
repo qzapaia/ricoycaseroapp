@@ -1,0 +1,31 @@
+.root{
+}
+.button{
+
+}
+
+.menu{
+  background-color: lightblue;
+  padding:20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  min-height: 100vh;
+  display: none;
+}
+
+.menuOption{
+  display: block;
+  padding: 20px;
+}
+
+.close{
+  position: absolute;
+  font-size: 40px;
+  right: 20px;
+  top: 20px;
+}
+
+.showMenu{
+  display: block;
+}
