@@ -4,7 +4,9 @@ const mount = require('choo/mount');
 const resume = require('./helpers/choo-resume');
 const app = choo();
 
-app.use(resume());
+const DEV = process.env.NODE_ENV === 'development';
+
+DEV && app.use(resume());
 
 require('./css/base.css');
 
