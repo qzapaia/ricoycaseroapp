@@ -1,7 +1,7 @@
 var html = require('choo/html')
 var styles = require('./styles.css');
 
-module.exports  = (param) => (state, prev, send) => html`
+module.exports  = (param) => (state, emit) => html`
   <main class=${styles.root}>
 
     <section class=${styles.intro}>
@@ -12,7 +12,7 @@ module.exports  = (param) => (state, prev, send) => html`
         <a href="/foods">Usar mi ubicación actual</a>
       </div>
 
-      <form class=${styles.addressSearchForm}>
+      <form class=${styles.addressSearchForm} action="/foods">
         <input type="text" placeholder="rivadavia 1234" />
         <div>
           <button>Buscar por dirección</button>

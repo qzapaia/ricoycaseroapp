@@ -1,18 +1,21 @@
+
 .root{
-}
-.button{
-
-}
-
-.menu{
   background-color: lightblue;
   padding:20px;
   position: fixed;
   width: 100%;
   top: 0;
   min-height: 100vh;
-  display: none;
+  transition: left .2s;
+  left: -100vw;
+  z-index: 10;
+  transition-timing-function: ease-in-out;
 }
+  .showMenu{
+    display: block;
+    left: 0;
+  }
+
 
 .menuOption{
   display: block;
@@ -24,8 +27,4 @@
   font-size: 40px;
   right: 20px;
   top: 20px;
-}
-
-.showMenu{
-  display: block;
 }

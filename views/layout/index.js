@@ -2,12 +2,14 @@ const html = require('choo/html');
 const styles = require('./styles.css');
 const menuView = require('../menu');
 
-module.exports = (config) => (state, prev, send) => {
-  const {texts} = state;
+module.exports = (config) => (state, emit) => html`
+  <main class=${styles.root}>
+    ${menuView()(state, emit)}
 
-  return html`<main class=${styles.root}>
     <header class=${styles.header}>
-      ${menuView()(state, prev, send)}
+      <button class=${styles.button} onclick=${()=>{ emit('showMenu',true) }}>
+        Menu
+      </button>
       <h1 class=${styles.title}>
         <a href="/">R&C</a>
       </h1>
@@ -15,7 +17,7 @@ module.exports = (config) => (state, prev, send) => {
     </header>
 
     <main class=${styles.main}>
-      ${config.content(state, prev, send)}
+      ${config.content(state, emit)}
     </main>
-  </main>`
-}
+  </main>
+`

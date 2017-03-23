@@ -2,27 +2,22 @@ const html = require('choo/html');
 const styles = require('./styles.css');
 const classNames = require('classnames');
 
-module.exports = (config) => (state, prev, send) => html`
-  <div class=${styles.root}>
-
-    <button class=${styles.button} onclick=${()=>{ send('layout:change',!state.layout.show) }}>
-      Menu
+module.exports = (config) => (state, emit) => html`
+  <div class=${classNames(styles.root, { [styles.showMenu]:state.menuVisible } )} onclick=${()=>{ emit('showMenu', false) }}>
+    <button class=${styles.close}>
+      x
     </button>
+    <nav class=${styles.menuOptions}>
+      <a class=${styles.menuOption} href="/">Inicio</a>
+      <a class=${styles.menuOption} href="/requests">Mis pedidos</a>
+      <a class=${styles.menuOption} href="/favorites">Favoritos</a>
+      <hr />
+      <a class=${styles.menuOption} href="/orders">Mis comandas</a>
+      <a class=${styles.menuOption} href="/my-foods">Mis comidas</a>
+      <a class=${styles.menuOption} href="/publish">Publicar comida</a>
+      <a class=${styles.menuOption} href="/contact">Contactanos</a>
 
-    <div class=${classNames(styles.menu, { [styles.showMenu]:state.layout.show } )}>
-      <button class=${styles.close} onclick=${()=>{ send('layout:change', false) }}>
-        x
-      </button>
-      <nav class=${styles.menuOptions}>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-        <a class=${styles.menuOption} href="">Optciones</a>
-      </nav>
-    </div>
+      <a class=${styles.menuOption} href="/profile">Mi Perfil/Ingresar</a>
+    </nav>
   </div>
 `

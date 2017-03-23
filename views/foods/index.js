@@ -1,13 +1,40 @@
 const html = require('choo/html');
 const styles = require('./styles.css');
+const filtersView = require('../filters');
+const foodListItem = require('../food-list-item');
+const classNames = require('classnames');
 
-module.exports = (param) => (state, prev, send) => html`
-  <main class=${styles.root}>
-    ${[1,2,3,4,5,6,7,8,9,10].map(i=>html`
-      <a class=${styles.foodPreview} href="/foods/1234">
-        <h3>Comida</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      </a>
-    `)}
-  </main>
-`
+module.exports = (param) => (state, emit) => {
+  const {
+    searchResults,
+    me
+  } = state;
+
+
+
+  return html`
+    <main class=${styles.root}>
+      <div class=${classNames(styles.filters, { [styles.showFilters]:state.filtersVisible } )}>
+        ${filtersView({
+          onClose:()=>emit('showFilters', false)
+        })(state, emit)}
+      </div>
+
+      <header class=${styles.searchHeader}>
+        <div class=${styles.searchDetails}>
+          <div class=${styles.foodAmount}>12 comidas</div>
+          <div class=${styles.appliedFilters}>Cerca de mi ubicación</div>
+        </div>
+
+        <button class=${styles.showFilters} onclick=${()=>{ emit('showFilters', true) }}>
+          Filters
+        </button>
+      </header>
+
+      ${searchResults.map(r=>{
+        r.favorite = me.favorites.includes(r.id);
+        return foodListItem(r)(state, emit)
+      })}
+    </main>
+  `
+}
