@@ -8,7 +8,16 @@ module.exports = (config) => (state, prev, send) => html`
         x
       </button>
     </header>
-    <h1>filters component</h1>
-    <h1>Param: ${config}</h1>
+    <div>
+      <button>Entrega Programada</button>
+      <button>Entrega a coordinar</button>
+    </div>
+    <div>
+      ${state.foodTypes.map(ft=>html`
+        <div>
+         <input type="checkbox" />${ft.name}
+        </div>
+      `)}
+    </div>
   </main>
 `

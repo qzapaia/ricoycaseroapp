@@ -22,25 +22,18 @@ var notFoundView = require('./views/not-found')();
 app.use(require('./stores/layout'));
 app.use(require('./stores/search'));
 app.use(require('./stores/me'));
-// app.model(require('./stores/texts'));
-// app.model(require('./stores/main'));
+app.use(require('./stores/foods'));
 
 // Routes
-
 app.route('/', layoutView({ content:homeView }))
 app.route('/foods', layoutView({ content:foodsView }))
-app.route('*', layoutView({ content:notFoundView }))
-// [
-// 	['/foods', layoutView({ content:foodsView }), [
-// 		['/:id', layoutView({ content:foodDetailView })]
-// 	]],
-// 	['/favorites', layoutView({ content:favoritesView })],
-// ]);
+app.route('/foods/:id', layoutView({ content:foodDetailView }))
+app.route('/favorites', layoutView({ content:favoritesView }))
 
+app.route('*', layoutView({ content:notFoundView }))
 
 // Setup
-DEV && app.use(resume());
-var tree = app.start();
+var tree = resume(app).start();
 var el = document.querySelector('#choo-app');
 el && el.remove();
 document.body.appendChild(html`<div id="choo-app">${tree}</div>`);

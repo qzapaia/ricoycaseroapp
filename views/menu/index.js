@@ -8,7 +8,7 @@ module.exports = (config) => (state, emit) => html`
       x
     </button>
     <nav class=${styles.menuOptions}>
-      <a class=${styles.menuOption} href="/">Inicio</a>
+      <a class=${styles.menuOption} href="/">Buscar</a>
       <a class=${styles.menuOption} href="/requests">Mis pedidos</a>
       <a class=${styles.menuOption} href="/favorites">Favoritos</a>
       <hr />
