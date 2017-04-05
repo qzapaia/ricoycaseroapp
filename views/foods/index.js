@@ -6,12 +6,8 @@ const classNames = require('classnames');
 
 module.exports = (param) => (state, emit) => {
   const {
-    searchResults,
-    foodsById,
-    me
+    searchResults
   } = state;
-
-
 
   return html`
     <main class=${styles.root}>
@@ -32,9 +28,7 @@ module.exports = (param) => (state, emit) => {
         </button>
       </header>
 
-      ${searchResults.map(id=>{
-        const food = foodsById[id];
-        food.favorite = me.favorites.includes(id);
+      ${searchResults.map(food=>{
         return foodListItem(food)(state, emit)
       })}
     </main>

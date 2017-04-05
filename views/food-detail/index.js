@@ -3,13 +3,14 @@ const styles = require('./styles.css');
 
 module.exports = (param) => (state, emit) => {
   const {
-    params,
+    params:{ id },
     foodsById,
     me
   } = state;
-  const food = foodsById[params.id];
 
-  return html`
+  const food = foodsById[id];
+
+  return food && html`
     <main class=${styles.root}>
       <h1>food-detail ${food.id}</h1>
       <h1>Name: ${food.name}</h1>

@@ -7,13 +7,13 @@ module.exports = (config) => (state, emit) => html`
     ${menuView()(state, emit)}
 
     <header class=${styles.header}>
-      <button class=${styles.button} onclick=${()=>{ emit('showMenu',true) }}>
+      <button class=${styles.menuButton} onclick=${()=>{ emit('showMenu',true) }}>
         Menu
       </button>
       <h1 class=${styles.title}>
         <a href="/">R&C</a>
       </h1>
-      <button class=${styles.cart}>Cart</button>
+      <span class=${styles.menuOption}></span>
     </header>
 
     <main class=${styles.main}>

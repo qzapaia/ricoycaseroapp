@@ -1,5 +1,8 @@
+const foodMock = require('./food.mock.js');
+
 module.exports = (state, emitter) => {
   Object.assign(state,{
+    currentFoodId:null,
     foodsById:{},
     foodTypes:[]
   });
@@ -10,30 +13,36 @@ module.exports = (state, emitter) => {
       id:i
     }));
     emitter.emit('render');
-  })
+  });
 
-  emitter.on('pullFoods',(foods)=>{
-    foods.map(i=>{
-      state.foodsById[i] = {
-        id:i,
-        name:'Bondiolita del futuro',
-        pictureURL:'http://lorempixel.com/500/500/food/',
-        description:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos, nesciunt, cupiditate molestiae ducimus placeat cumque necessitatibus, impedit error praesentium sit voluptatum architecto incidunt sed perspiciatis quas eligendi rerum vel!',
-        rating:4,
-        votesAmount:24,
-        price:70,
-        currency:'ARS',
-        scheduled_delivery:{
-          from:new Date(),
-          to:new Date(),
-          until:new Date()
-        }
-      }
-    });
-    emitter.emit('render');
+  emitter.on('loadApp',()=>{
+    const {
+      params: { id },
+      currentFoodId,
+      locationPath } = state;
+
+    if(locationPath[0] == 'foods' && currentFoodId != id){
+      state.currentFoodId = id;
+      emitter.emit('pullFood',id);
+    }
+  });
+
+  emitter.on('pullFood',(id)=>{
+    if(!state.foodsById[id]){
+      setTimeout(()=>{
+        state.foodsById[id] = foodMock({ id })
+        emitter.emit('render');
+      },500)
+    }else{
+      emitter.emit('render');
+    }
+  });
+
+  emitter.on('*', ()=>{
+    console.log('state',state.params.id)
   });
 
   emitter.on('DOMContentLoaded', () => {
     emitter.emit('pushFoodTypes');
-  })
+  });
 }

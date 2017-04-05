@@ -3,7 +3,9 @@ const styles = require('./styles.css');
 const classNames = require('classnames');
 
 module.exports = (config) => (state, emit) => html`
-  <div class=${classNames(styles.root, { [styles.showMenu]:state.menuVisible } )} onclick=${()=>{ emit('showMenu', false) }}>
+  <div class=${classNames(styles.root, { [styles.showMenu]:state.menuVisible } )}
+       onclick=${()=>{ emit('showMenu', false); }}
+       onload=${()=>{ emit('loadApp'); }}>
     <button class=${styles.close}>
       x
     </button>

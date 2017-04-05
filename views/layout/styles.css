@@ -12,6 +12,13 @@
   padding: 10px;
   background-color: #fafafa;
 }
+
+  .menuOption{
+    width: 50px;
+  }
+  .menuButton{
+    composes:menuOption;
+  }
   .title{
     @apply --title-1;
     flex:1;
